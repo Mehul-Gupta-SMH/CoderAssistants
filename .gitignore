@@ -2,3 +2,4 @@ main.py
 Coder/Utilities/Configs
 Coder/Utilities/Retrieval_Pipeline/.
 Code/Utlities/Configs/model_config.yaml
+*.yaml
