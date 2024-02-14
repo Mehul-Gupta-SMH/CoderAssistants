@@ -1,3 +1,5 @@
+# All features mentioned below are WIP
+
 # CoderAssistants
 
 Welcome to the CoderAssistants repository! This project leverages Language Model (LLM) agents to generate code snippets for users, providing assistance in various programming tasks. Additionally, it constructs a knowledge bank that can be referenced to aid in code creation for individual references.
