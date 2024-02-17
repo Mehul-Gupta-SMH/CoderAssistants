@@ -36,7 +36,7 @@ To get started with CoderAssistants, follow these steps:
 3. **Run the Application**: Execute the main script to start the CoderAssistants application:
 
     ```bash
-    python main.py
+    python app.py
     ```
 
 4. **Interact with the Application**: Follow the prompts and instructions provided by the application to generate code snippets or utilize the knowledge bank.
