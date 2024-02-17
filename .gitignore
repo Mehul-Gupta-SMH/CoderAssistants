@@ -1,5 +1,6 @@
 main.py
 Coder/Utilities/Configs
 Coder/Utilities/Retrieval_Pipeline/.
-Code/Utlities/Configs/model_config.yaml
-*.yaml
+Code/Utlities/Configs/*
+Code/Utlities/__pycache__
+Code/Coder/.cache

@@ -1,8 +1,0 @@
-base_config:
-  Configs/base_config.yaml
-
-retrieval_config:
-  Configs/retrieval_config.yaml
-
-model_config:
-  Configs/model_config.yaml
