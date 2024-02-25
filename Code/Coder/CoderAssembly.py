@@ -1,11 +1,12 @@
 import os.path
 
 from autogen import AssistantAgent, UserProxyAgent, GroupChat, GroupChatManager
+from autogen.code_utils import extract_code
 
 from CoderAssistants.Code.Utlities import base_utils
 
-# @base_utils.log_function
-def generate_team(topic:str,team_type="python_dev"):
+@base_utils.log_function
+def generate_team(topic:str,team_type="python_dev",max_conv_series=20):
 
     print("Generating Team : ",team_type)
 
@@ -37,7 +38,7 @@ def generate_team(topic:str,team_type="python_dev"):
 
     groupchat = GroupChat(agents=list(member_agents.values())
                           , messages=[]
-                          , max_round=20
+                          , max_round=max_conv_series
                           , allowed_or_disallowed_speaker_transitions = disallowed_speaker_transitions
                           , speaker_transitions_type = "disallowed"
                           ,speaker_selection_method='auto')
@@ -69,9 +70,18 @@ def generate_team(topic:str,team_type="python_dev"):
             full_message += message
         ConvResults.write(full_message)
 
+    codes_extracted = []
 
-    if len(groupchat.messages[-1]['content'].strip()):
-        return groupchat.messages[-1]['content']
-    else:
-        return groupchat.messages[-2]['content']
+    for messages in groupchat.messages:
+        try:
+            codes_extracteda.append(
+                (
+                    messages['content'].strip(),
+                    extract(messages['content'].strip())
+                )
+            )
+        except:
+            continue
+
+    return codes_extracted
 
