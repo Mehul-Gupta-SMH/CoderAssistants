@@ -64,7 +64,20 @@ def addRelations(GObj: nx.Graph, nodes: dict, edges: dict):
 # --------------------------------------------------------------------------------------------
 
 def getRelations(GObj: nx.Graph, target_nodes):
+    """
+    Retrieve relations between target nodes in a graph.
 
+    args:
+        - GObj (nx.Graph): NetworkX graph object.
+        - target_nodes (list): List of target nodes.
+
+    returns:
+        - list: List of relations between target nodes along the shortest path.
+
+    notes:
+        - This function finds the shortest path visiting all target nodes exactly once.
+        - Relations are extracted along the shortest path, including edge attributes and node attributes.
+    """
     # Initialize variables to store relations and shortest path
     relations = []
     shortest_path = None
@@ -80,13 +93,14 @@ def getRelations(GObj: nx.Graph, target_nodes):
         is_valid_path = True
 
         for i in range(len(perm) - 1):
-
+            # Check if there is an edge between consecutive target nodes
             if not GObj.has_edge(perm[i], perm[i+1]):
                 is_valid_path = False
                 break
-
+            # Compute the shortest path length between consecutive target nodes
             path_length += nx.shortest_path_length(GObj, source=perm[i], target=perm[i+1])
 
+        # Check if the current path is valid and shorter than the current shortest path
         if is_valid_path and path_length < shortest_path_length:
             shortest_path_length = path_length
             shortest_path = perm
