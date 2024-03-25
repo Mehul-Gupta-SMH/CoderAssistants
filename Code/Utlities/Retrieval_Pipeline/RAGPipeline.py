@@ -8,9 +8,8 @@ from sentence_transformers import SentenceTransformer
 
 import uuid
 
-from CoderAssistants.Code.Utlities.Retrieval_Pipeline.vdb import Chroma
-from CoderAssistants.Code.Utlities import base_utils
-
+from Code.Utlities.Retrieval_Pipeline.vdb import Chroma
+from Code.Utlities import base_utils
 
 class FilterContext:
     """
@@ -190,11 +189,11 @@ class ManageInformation(FilterContext):
         """
         Retrieve data from the database and score each retrieved data point.
 
-        args:
+        Args:
             - query: Query to retrieve data.
             - vdb_metadata: Metadata specific to the virtual database.
 
-        returns:
+        Returns:
             - dict: Scored results containing retrieved data, distance, and scores.
         """
         # Encode the query using the embedding model
