@@ -1,4 +1,4 @@
-# Scoring Models
+# --------------------------------------------------------------------------------------------
 from FlagEmbedding import FlagReranker
 from rank_bm25 import BM25Okapi
 from detoxify import Detoxify
@@ -6,10 +6,22 @@ from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 from transformers import pipeline
 from sentence_transformers import SentenceTransformer
 
+# --------------------------------------------------------------------------------------------
+
 import uuid
 
+# --------------------------------------------------------------------------------------------
+
 from Code.Utlities.Retrieval_Pipeline.vdb import Chroma
-from Code.Utlities import base_utils
+from Code.Utlities.base_utils import get_config_val
+
+# --------------------------------------------------------------------------------------------
+
+indexing_configs = get_config_val("retrieval_config",["indexing"],True)
+scoring_configs = get_config_val("retrieval_config",["scoring"],True)
+vectordb_configs = get_config_val("retrieval_config",["vectordb"],True)
+
+# --------------------------------------------------------------------------------------------
 
 class FilterContext:
     """
@@ -26,10 +38,10 @@ class FilterContext:
         """
         Initialize the FilterContext with pre-trained models.
         """
-        self.RerankerModel = FlagReranker('BAAI/bge-reranker-large', use_fp16=True)
+        self.RerankerModel = FlagReranker(scoring_configs["crossencoder"], use_fp16=True)
         self.ToxicityModel = Detoxify('original')
-        self.BiasModel_tokenizer = AutoTokenizer.from_pretrained("d4data/bias-detection-model")
-        self.BiasModel = TFAutoModelForSequenceClassification.from_pretrained("d4data/bias-detection-model")
+        self.BiasModel_tokenizer = AutoTokenizer.from_pretrained(scoring_configs["bias_detection"])
+        self.BiasModel = TFAutoModelForSequenceClassification.from_pretrained(scoring_configs["bias_detection"])
 
     @staticmethod
     def __ScoreResults_reranker__(base_query: str, retrieved_info: str):
@@ -121,6 +133,7 @@ class FilterContext:
 
         return score_results
 
+# --------------------------------------------------------------------------------------------
 
 class ManageInformation(FilterContext):
     """
@@ -132,16 +145,16 @@ class ManageInformation(FilterContext):
         - embedding_model: Sentence embedding model for generating embeddings.
     """
 
-    def __init__(self, dbName: str):
+    def __init__(self):
         """
         Initialize the ManageInformation instance.
 
         args:
             - dbName (str): Name of the database to manage.
         """
-        self.dbName = dbName
+        self.dbName = vectordb_configs["name"]
         self.client = None
-        self.embedding_model = SentenceTransformer('BAAI/bge-small-en-v1.5')
+        self.embedding_model = SentenceTransformer(indexing_configs["model"])
 
     def initialize_client(self, path: str):
         """
@@ -216,3 +229,5 @@ class ManageInformation(FilterContext):
             }
 
         return results_scored
+
+# --------------------------------------------------------------------------------------------

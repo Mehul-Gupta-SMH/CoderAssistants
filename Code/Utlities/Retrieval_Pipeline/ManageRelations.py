@@ -1,4 +1,4 @@
-from CoderAssistants.Code.Utilities.Retrieval_Pipeline.relationdb import networkxDB
+from Code.Utilities.Retrieval_Pipeline.relationdb import networkxDB
 
 class Relations:
     """
