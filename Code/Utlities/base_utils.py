@@ -12,16 +12,16 @@ def get_config_val(config_type:str,key_list:list,get_all=False) -> str:
     """
     Retrieve a configuration value from a YAML configuration file based on the provided configuration type and keys.
 
-    Input:
-    - config_type (str): The type of configuration to retrieve.
-    - *args (str): Variable length argument list of keys to navigate through the configuration.
+    args:
+        - config_type (str): The type of configuration to retrieve.
+        - *args (str): Variable length argument list of keys to navigate through the configuration.
 
-    Output:
-    - str: The value corresponding to the specified configuration type and keys.
+    returns:
+        - str: The value corresponding to the specified configuration type and keys.
 
-    Raises:
-    - KeyError: If the provided configuration type is not found in the configuration file.
-    - AttributeError: If unable to resolve the configuration value from the list of keys provided.
+    raises:
+        - KeyError: If the provided configuration type is not found in the configuration file.
+        - AttributeError: If unable to resolve the configuration value from the list of keys provided.
 
     """
     with open(r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\Code\Utlities\Configs\config_paths.yaml","r") as conf_pths:
