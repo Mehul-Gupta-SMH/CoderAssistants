@@ -1,14 +1,13 @@
 import yaml
-
 import os
-
 import functools
 import logging
-
+import sqlite3
 import time
+import inspect
 
 
-def get_config_val(config_type:str,key_list:list,get_all=False) -> str:
+def get_config_val(config_type: str, key_list: list, get_all=False) -> str:
     """
     Retrieve a configuration value from a YAML configuration file based on the provided configuration type and keys.
 
@@ -24,15 +23,16 @@ def get_config_val(config_type:str,key_list:list,get_all=False) -> str:
         - AttributeError: If unable to resolve the configuration value from the list of keys provided.
 
     """
-    with open(r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\Code\Utlities\Configs\config_paths.yaml","r") as conf_pths:
-        config_map = yaml.load(conf_pths,yaml.FullLoader)
-
+    with open(
+            r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\Code\Utlities\Configs\config_paths.yaml",
+            "r") as conf_pths:
+        config_map = yaml.load(conf_pths, yaml.FullLoader)
 
     if config_type not in config_map.keys():
         raise KeyError(f"{config_type} : Config Type not Correct")
 
-    with open(config_map[config_type],'r') as conf_file:
-        config_val = yaml.load(conf_file,yaml.FullLoader)
+    with open(config_map[config_type], 'r') as conf_file:
+        config_val = yaml.load(conf_file, yaml.FullLoader)
 
         for key_val in key_list:
             try:
@@ -40,11 +40,10 @@ def get_config_val(config_type:str,key_list:list,get_all=False) -> str:
             except:
                 raise KeyError(f"Key Value incorrect {key_val}")
 
-    if isinstance(config_val,dict) and get_all==False:
+    if isinstance(config_val, dict) and get_all == False:
         raise AttributeError("Incomplete Key List : Unable to resolve config value from list of keys provided")
 
     return config_val
-
 
 
 def log_function(func):
@@ -78,4 +77,67 @@ def log_function(func):
     return wrapper
 
 
+class cachefunc:
+    def __init__(self):
+        """
+        Initializes an instance of cachefunc class.
+        """
+        # Establish connection to the SQLite database
+        self.connection = sqlite3.connect(
+            r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\cache\memoize.db")
+        self.cursor = self.connection.cursor()
 
+    def create_cache_table(self):
+        """
+        Creates the cache table if it doesn't already exist.
+        """
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS cache (
+                key TEXT PRIMARY KEY,
+                value DOUBLE
+            )
+        ''')
+        self.connection.commit()
+
+    def memoize(self, func):
+        """
+        Memoization decorator function.
+
+        Args:
+            func (function): The function to be memoized.
+
+        Returns:
+            function: The wrapper function for memoization.
+        """
+
+        def wrapper(*args, **kwargs):
+            # Create cache table of not exists
+            self.create_cache_table()
+            # Get module and file path of the function
+            module = inspect.getmodule(func)
+            file_path = module.__file__ if module else ''
+            # Create a unique key based on file path, function name, arguments, and keyword arguments
+            key = (file_path, func.__qualname__, args[1:], kwargs)
+            # Check if the key exists in the cache table
+            self.cursor.execute('SELECT value FROM cache WHERE key = ?', (str(key),))
+            result = self.cursor.fetchone()
+
+            if result is not None:
+                # Return the cached result if found
+                return result[0]
+            else:
+                # Call the original function if the result is not in the cache
+                result = func(*args, **kwargs)
+                # Insert the result into the cache table
+                self.cursor.execute('Insert into cache(key, value) values (?,?)', (str(key), str(result)))
+                # Commit changes to the database
+                self.connection.commit()
+                return result
+
+        return wrapper
+
+    def close(self):
+        """
+        Closes the database connection.
+        """
+        self.connection.close()
