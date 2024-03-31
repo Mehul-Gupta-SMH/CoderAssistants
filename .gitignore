@@ -5,6 +5,5 @@ Code/Utlities/Configs/*
 Code/Utlities/__pycache__
 Code/Coder/.cache
 *.yaml
-*.yaml
 /.cache
-*.yaml
+/cache
