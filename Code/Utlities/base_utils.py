@@ -1,3 +1,6 @@
+# --------------------------------------------------------------------
+# Import Library
+# --------------------------------------------------------------------
 import yaml
 import os
 import functools
@@ -5,8 +8,9 @@ import logging
 import sqlite3
 import time
 import inspect
+import hashlib
 
-
+# --------------------------------------------------------------------
 def get_config_val(config_type: str, key_list: list, get_all=False) -> str:
     """
     Retrieve a configuration value from a YAML configuration file based on the provided configuration type and keys.
@@ -45,6 +49,7 @@ def get_config_val(config_type: str, key_list: list, get_all=False) -> str:
 
     return config_val
 
+# --------------------------------------------------------------------
 
 def log_function(func):
     """
@@ -76,6 +81,149 @@ def log_function(func):
 
     return wrapper
 
+# --------------------------------------------------------------------
+class accessDB:
+    def __init__(self, info_type: str, db_name: str):
+        """
+        Initializes an instance of AccessDB class.
+
+        Args:
+            info_type (str): Type of information (e.g., 'cache', 'table metadata').
+            db_name (str): Name of the SQLite database.
+        """
+        # Construct database file path
+        base_path = "C:/Users/mehul/Documents/Projects - GIT/Agents/Decompose KG from Code/pythonProject/CoderAssistants/DBinst/"
+        directory = os.path.join(base_path,info_type)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        dbconnection = os.path.join(directory,f"{db_name}.db")
+
+        # Connect to the SQLite database
+        self.connection = sqlite3.connect(dbconnection)
+        self.cursor = self.connection.cursor()
+
+    def create_table(self, tableSchema: dict):
+        """
+        Create a table in the SQLite database.
+
+        Args:
+            table_schema (dict): Dictionary containing table schema information.
+        """
+        tableName = tableSchema['tableName']
+
+        # Construct column definitions
+        collist = []
+        for col, md in tableSchema['columns'].items():
+            collist.append(col + " " + " ".join(md))
+
+        # Construct table creation query
+        tableCreateQuery = f'''
+            CREATE TABLE IF NOT EXISTS {tableName} (
+                {", ".join(collist)}
+            )
+        '''
+
+
+        # Execute the table creation query
+        self.cursor.execute(tableCreateQuery)
+        self.connection.commit()
+
+
+    def get_data(self, tableName: str, lookupDict: dict, lookupVal: list, fetchtype = "one"):
+        """
+        Retrieve data from the SQLite database.
+
+        Args:
+            table_name (str): Name of the table.
+            lookup_dict (dict): Dictionary containing lookup column-value pairs for filtering data (default: None).
+            lookup_val (list): List of column names to retrieve (default: None).
+            fetch_type (str): Type of fetch operation, 'one' or 'all' (default: 'one').
+
+        Returns:
+            tuple or list: Retrieved data.
+        """
+        if not len(lookupVal):
+            lookupVal = ["*",]
+
+        if not len(lookupDict):
+            self.cursor.execute(f'SELECT {", ".join(lookupVal)} FROM {tableName}')
+
+        else:
+            lookupkeyslist = []
+            for colname, colval in lookupDict.items():
+                lookupkeyslist.append(f"{colname} = '{colval}'")
+
+            lookupQuery = f'''SELECT { ", ".join(lookupVal) } FROM { tableName } WHERE { " AND ".join(lookupkeyslist) }'''
+
+            self.cursor.execute(lookupQuery)
+
+        if fetchtype == "one":
+            return self.cursor.fetchone()
+        else:
+            return self.cursor.fetchall()
+
+    def post_data(self, tableName: str, insertlist: list[dict[str,str]]) -> None:
+        """
+        Insert data into the SQLite database.
+
+        Args:
+            table_name (str): Name of the table.
+            insert_list (list): List of dictionaries containing data to insert.
+        """
+        for records_dict in insertlist:
+            colList = records_dict.keys()
+            placehldr = ",".join(["?"]*len(records_dict.keys()))
+            colval = tuple(records_dict.values())
+            self.cursor.execute(f'Insert into {tableName}({", ".join(colList)}) values ({placehldr})', colval)
+
+
+    def update_data(self, tableName: str, matchVal: dict[str,str], updateVal: dict[str,str]) -> None:
+        """
+        Update data in the SQLite database.
+
+        Args:
+            tableName (str): Name of the table to update.
+            matchVal (dict): Dictionary containing column-value pairs for matching rows.
+            updateVal (dict): Dictionary containing column-value pairs to update.
+
+        Raises:
+            ValueError: If update values are not provided.
+        """
+        if not len(updateVal):
+            raise "Update values not provided"
+
+        updateList = []
+        for col, vals in updateVal.items():
+            updateList.append(f"{col} = {vals}")
+
+        updateQuery = f'''
+        UPDATE {tableName}
+        SET {", ".join(updateList)}
+        '''
+
+        if len(matchVal):
+            matchList = []
+            for col, vals in matchVal.items():
+                matchList.append(f"{col} = {vals}")
+
+            updateQuery = f'''
+            {updateQuery}
+            WHERE {" AND ".join(matchList)}
+            '''
+
+        self.cursor.execute(updateQuery)
+
+
+
+    def delete_data(self):
+        """
+        Placeholder method for deleting data from the SQLite database.
+        """
+        pass
+
+
+# --------------------------------------------------------------------
 
 class cachefunc:
     def __init__(self):
@@ -83,21 +231,22 @@ class cachefunc:
         Initializes an instance of cachefunc class.
         """
         # Establish connection to the SQLite database
-        self.connection = sqlite3.connect(
-            r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\cache\memoize.db")
-        self.cursor = self.connection.cursor()
+        self.info_type = "cache"
+        self.dbName = "memoize"
+        self.DBObj = accessDB(self.info_type, self.dbName)
+        self.table_schema = {
+            'tableName' : 'cache',
+            'columns' : {
+                'key': ['TEXT', 'PRIMARY KEY'],
+                'value': ['DOUBLE', '']
+            }
+        }
 
     def create_cache_table(self):
         """
         Creates the cache table if it doesn't already exist.
         """
-        self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS cache (
-                key TEXT PRIMARY KEY,
-                value DOUBLE
-            )
-        ''')
-        self.connection.commit()
+        self.DBObj.create_table(self.table_schema)
 
     def memoize(self, func):
         """
@@ -117,10 +266,15 @@ class cachefunc:
             module = inspect.getmodule(func)
             file_path = module.__file__ if module else ''
             # Create a unique key based on file path, function name, arguments, and keyword arguments
-            key = (file_path, func.__qualname__, args[1:], kwargs)
+            key = (file_path, func.__qualname__, args[1:], str(kwargs))
+            key = str(key).encode('utf-8')
+
+            hasher = hashlib.sha256()
+            hasher.update(key)
+            key = hasher.hexdigest()
+
             # Check if the key exists in the cache table
-            self.cursor.execute('SELECT value FROM cache WHERE key = ?', (str(key),))
-            result = self.cursor.fetchone()
+            result = self.DBObj.get_data(self.table_schema["tableName"], {"key": str(key)}, ["value"])
 
             if result is not None:
                 # Return the cached result if found
@@ -129,9 +283,15 @@ class cachefunc:
                 # Call the original function if the result is not in the cache
                 result = func(*args, **kwargs)
                 # Insert the result into the cache table
-                self.cursor.execute('Insert into cache(key, value) values (?,?)', (str(key), str(result)))
-                # Commit changes to the database
-                self.connection.commit()
+
+                vals_list = [
+                    {
+                        "key": str(key),
+                        "value": str(result)
+                    }
+                ]
+                self.DBObj.post_data(self.table_schema["tableName"], vals_list)
+
                 return result
 
         return wrapper
@@ -141,3 +301,5 @@ class cachefunc:
         Closes the database connection.
         """
         self.connection.close()
+
+# --------------------------------------------------------------------
