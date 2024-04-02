@@ -1,5 +1,5 @@
 # CoderAssistants
-
+![](C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\assets\CoderAssistants - Banner.jpeg)
 Welcome to the CoderAssistants repository! This project leverages Language Model (LLM) agents to generate code snippets for users, providing assistance in various programming tasks. Additionally, it constructs a knowledge bank that can be referenced to aid in code creation for individual references.
 
 ## Overview
