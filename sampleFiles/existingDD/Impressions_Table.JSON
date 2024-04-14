@@ -1,0 +1,26 @@
+{
+  "tableName": "Impressions_Table",
+  "tableDesc": "Table containing information about impressions for each campaign",
+  "records": [
+    {
+      "TableName": "Impressions_Table",
+      "ColumnName": "campaign_id",
+      "DataType": "INT",
+      "Constraints": "Foreign Key",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Identifier for the associated campaign"
+    },
+    {
+      "TableName": "Impressions_Table",
+      "ColumnName": "impressions",
+      "DataType": "INT",
+      "Constraints": "None",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Number of impressions for the campaign"
+    }
+  ]
+}

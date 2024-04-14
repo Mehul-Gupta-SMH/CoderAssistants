@@ -7,3 +7,5 @@ Code/Coder/.cache
 *.yaml
 /.cache
 /cache
+*.db
+*.pyc

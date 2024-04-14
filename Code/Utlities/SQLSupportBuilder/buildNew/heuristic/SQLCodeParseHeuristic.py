@@ -114,7 +114,7 @@ class SQLCodeParse:
 
         return result
 
-    def get_sql_components(self, query: str) -> Tuple(dict[str,str],list):
+    def get_sql_components(self, query: str) : #-> tuple(dict[str,str],list):
         """
         Extracts SQL components including tables, aliases, and refined join conditions from the SQL query.
 

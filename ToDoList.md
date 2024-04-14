@@ -45,6 +45,17 @@
 
 - ### Code Migration
   - #### SAS to PySpark (TBD)
+    - ##### Create a SQL Code and Assets repository (borrows Database Admin from SQL Dev team)
+      - [ ] Tables and related metadata
+        - [ ] Tables and their description
+        - [ ] Tables Columns and their description
+          [comment]: # (This resembles closely to a data dictionary.)
+      - [ ] Relationships between tables
+        - [ ] Join conditions from existing query repo
+        - [ ] Keys mapping (FK,CK,PK etc)
+      - [ ] Pre-existing queries as baseline 
+        - [ ] Queries for specific request as example (especially if request is closely related or similar) 
+    - ##### Create a PySpark Code repository (TBD) 
   - #### SAS to SQL (TBD)
   - #### Python(Pandas) to PySpark (TBD) 
 
@@ -57,3 +68,14 @@
 - [ ] Control vectors and Representation Engineering
   - [ ] Control vectors (https://www.reddit.com/r/LocalLLaMA/comments/1atqj7f/control_vectors_add_a_meaningful_bias_in_each/)
   - [ ] Representation Engineering (https://vgel.me/posts/representation-engineering/)
+- [ ] Running LLM locally
+  - [ ] Ollama (https://github.com/ollama/ollama)
+  - [ ] Llama.cpp (https://github.com/abetlen/llama-cpp-python)
+- [ ] Simplify tool usage for agents
+  - [ ] Semantic Router (https://github.com/aurelio-labs/semantic-router)
+    - Could also be used for testing topics that needs to be guarded against.
+      - Politics and/or Political Figures
+      - Sensitive information (Creating explosives, biohazards etc.)
+      - PII
+      - HIPPA (Health, Insurance related)
+    - Identify which agent / tool can be used for the next steps (building own agent framework?)

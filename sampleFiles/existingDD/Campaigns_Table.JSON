@@ -1,0 +1,66 @@
+{
+  "tableName": "Campaigns_Table",
+  "tableDesc": "Table containing information about marketing campaigns",
+  "records": [
+    {
+      "TableName": "Campaigns_Table",
+      "ColumnName": "campaign_id",
+      "DataType": "INT",
+      "Constraints": "Primary Key",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Unique identifier for each campaign"
+    },
+    {
+      "TableName": "Campaigns_Table",
+      "ColumnName": "campaign_name",
+      "DataType": "VARCHAR",
+      "Constraints": "None",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Name of the marketing campaign"
+    },
+    {
+      "TableName": "Campaigns_Table",
+      "ColumnName": "start_date",
+      "DataType": "DATE",
+      "Constraints": "None",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Start date of the campaign"
+    },
+    {
+      "TableName": "Campaigns_Table",
+      "ColumnName": "end_date",
+      "DataType": "DATE",
+      "Constraints": "None",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "End date of the campaign"
+    },
+    {
+      "TableName": "Campaigns_Table",
+      "ColumnName": "budget",
+      "DataType": "DECIMAL",
+      "Constraints": "None",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Budget allocated for the campaign"
+    },
+    {
+      "TableName": "Campaigns_Table",
+      "ColumnName": "status",
+      "DataType": "VARCHAR",
+      "Constraints": "None",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Status of the campaign (e.g., Active, Inactive)"
+    }
+  ]
+}
