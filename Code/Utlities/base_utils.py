@@ -174,8 +174,10 @@ class accessDB:
         for records_dict in insertlist:
             colList = records_dict.keys()
             placehldr = ",".join(["?"]*len(records_dict.keys()))
-            colval = tuple(records_dict.values())
-            self.cursor.execute(f'Insert into {tableName}({", ".join(colList)}) values ({placehldr})', colval)
+            colval = tuple(map(str,records_dict.values()))
+            self.cursor.execute(f'Insert into {tableName}(`{"`, `".join(colList)}`) values ({placehldr})', colval)
+
+        self.connection.commit()
 
 
     def update_data(self, tableName: str, matchVal: dict[str,str], updateVal: dict[str,str]) -> None:
@@ -213,14 +215,30 @@ class accessDB:
             '''
 
         self.cursor.execute(updateQuery)
+        self.connection.commit()
 
 
-
-    def delete_data(self):
+    def delete_data(self, tableName: str, lookupDict: dict):
         """
         Placeholder method for deleting data from the SQLite database.
         """
-        pass
+        deleteQuery = f'''
+        DELETE 
+        FROM {tableName}
+        '''
+
+        if len(lookupDict):
+            lookupList = []
+            for col, vals in lookupDict.items():
+                lookupList.append(f"{col} = '{vals}'")
+
+            deleteQuery = f'''
+            {deleteQuery}
+            WHERE {" AND ".join(lookupList)}
+            '''
+
+        self.cursor.execute(deleteQuery)
+        self.connection.commit()
 
 
 # --------------------------------------------------------------------

@@ -1,0 +1,36 @@
+{
+  "tableName": "Actions_Table",
+  "tableDesc": "Table containing information about actions taken for each campaign",
+  "records": [
+    {
+      "TableName": "Actions_Table",
+      "ColumnName": "campaign_id",
+      "DataType": "INT",
+      "Constraints": "Foreign Key",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Identifier for the associated campaign"
+    },
+    {
+      "TableName": "Actions_Table",
+      "ColumnName": "clicks",
+      "DataType": "INT",
+      "Constraints": "None",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Number of clicks for the campaign"
+    },
+    {
+      "TableName": "Actions_Table",
+      "ColumnName": "conversions",
+      "DataType": "INT",
+      "Constraints": "None",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Number of conversions for the campaign"
+    }
+  ]
+}
