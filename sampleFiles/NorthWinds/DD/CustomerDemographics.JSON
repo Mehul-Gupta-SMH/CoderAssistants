@@ -1,0 +1,26 @@
+{
+  "tableName": "CustomerDemographics",
+  "tableDesc": "The CustomerDemographics table stores information about customer demographics. It contains details about different types of demographics associated with customers.",
+  "records": [
+    {
+      "TableName": "CustomerDemographics",
+      "ColumnName": "CustomerTypeID",
+      "DataType": "varchar",
+      "Constraints": "Primary Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The unique identifier for each type of customer demographic."
+    },
+    {
+      "TableName": "CustomerDemographics",
+      "ColumnName": "CustomerDesc",
+      "DataType": "ntext",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "A detailed description of the customer demographic, including characteristics and attributes."
+    }
+  ]
+}

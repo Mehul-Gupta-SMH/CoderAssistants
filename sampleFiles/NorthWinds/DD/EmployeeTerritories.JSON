@@ -1,0 +1,26 @@
+{
+  "tableName": "EmployeeTerritories",
+  "tableDesc": "The EmployeeTerritories table represents the relationship between employees and territories in the Northwind Traders organization.",
+  "records": [
+    {
+      "TableName": "EmployeeTerritories",
+      "ColumnName": "EmployeeID",
+      "DataType": "int",
+      "Constraints": "Primary Key, Foreign Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The unique identifier of the employee."
+    },
+    {
+      "TableName": "EmployeeTerritories",
+      "ColumnName": "TerritoryID",
+      "DataType": "varchar",
+      "Constraints": "Primary Key, Foreign Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The unique identifier of the territory assigned to the employee."
+    }
+  ]
+}

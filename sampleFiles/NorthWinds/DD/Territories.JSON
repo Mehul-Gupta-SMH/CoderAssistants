@@ -1,0 +1,36 @@
+{
+  "tableName": "Territories",
+  "tableDesc": "The Territories table contains information about different territories.",
+  "records": [
+    {
+      "TableName": "Territories",
+      "ColumnName": "TerritoryID",
+      "DataType": "varchar",
+      "Constraints": "Primary Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The unique identifier of the territory."
+    },
+    {
+      "TableName": "Territories",
+      "ColumnName": "TerritoryDescription",
+      "DataType": "varchar",
+      "Constraints": "",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The description of the territory."
+    },
+    {
+      "TableName": "Territories",
+      "ColumnName": "RegionID",
+      "DataType": "int",
+      "Constraints": "Foreign Key",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "Region",
+      "Desc": "The unique identifier of the region to which the territory belongs."
+    }
+  ]
+}

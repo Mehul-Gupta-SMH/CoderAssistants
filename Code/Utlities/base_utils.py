@@ -256,7 +256,7 @@ class cachefunc:
             'tableName' : 'cache',
             'columns' : {
                 'key': ['TEXT', 'PRIMARY KEY'],
-                'value': ['DOUBLE', '']
+                'value': ['TEXT', '']
             }
         }
 
@@ -296,7 +296,10 @@ class cachefunc:
 
             if result is not None:
                 # Return the cached result if found
-                return result[0]
+                try:
+                    return eval(result[0])
+                except:
+                    return result[0]
             else:
                 # Call the original function if the result is not in the cache
                 result = func(*args, **kwargs)

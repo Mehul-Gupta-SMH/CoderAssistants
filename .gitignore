@@ -9,3 +9,6 @@ Code/Coder/.cache
 /cache
 *.db
 *.pyc
+/tableMetadata
+/DBinst/cache
+Code/Utlities/Configs/model_config.yaml

@@ -1,0 +1,26 @@
+{
+  "tableName": "CustomerCustomerDemo",
+  "tableDesc": "The CustomerCustomerDemo table represents the relationship between customers and their demographic types. It serves as a bridge table connecting customers to their demographic information.",
+  "records": [
+    {
+      "TableName": "CustomerCustomerDemo",
+      "ColumnName": "CustomerID",
+      "DataType": "varchar",
+      "Constraints": "Primary Key, Foreign Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The unique identifier for each customer."
+    },
+    {
+      "TableName": "CustomerCustomerDemo",
+      "ColumnName": "CustomerTypeID",
+      "DataType": "varchar",
+      "Constraints": "Primary Key, Foreign Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The identifier for the type of demographic associated with the customer."
+    }
+  ]
+}

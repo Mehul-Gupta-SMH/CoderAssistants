@@ -1,0 +1,56 @@
+{
+  "tableName": "OrderDetails",
+  "tableDesc": "The OrderDetails table contains detailed information about the products included in each order placed by customers.",
+  "records": [
+    {
+      "TableName": "OrderDetails",
+      "ColumnName": "OrderID",
+      "DataType": "int",
+      "Constraints": "Primary Key, Foreign Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "Orders",
+      "Desc": "The unique identifier of the order, corresponding to the OrderID in the Orders table."
+    },
+    {
+      "TableName": "OrderDetails",
+      "ColumnName": "ProductID",
+      "DataType": "int",
+      "Constraints": "Primary Key, Foreign Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "Products",
+      "Desc": "The unique identifier of the product, corresponding to the ProductID in the Products table."
+    },
+    {
+      "TableName": "OrderDetails",
+      "ColumnName": "UnitPrice",
+      "DataType": "decimal",
+      "Constraints": "",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The price per unit of the product."
+    },
+    {
+      "TableName": "OrderDetails",
+      "ColumnName": "Quantity",
+      "DataType": "smallint",
+      "Constraints": "",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The quantity of the product ordered."
+    },
+    {
+      "TableName": "OrderDetails",
+      "ColumnName": "Discount",
+      "DataType": "decimal",
+      "Constraints": "",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The discount applied to the product."
+    }
+  ]
+}

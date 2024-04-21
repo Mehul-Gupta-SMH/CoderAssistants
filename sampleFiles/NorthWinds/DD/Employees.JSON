@@ -1,0 +1,186 @@
+{
+  "tableName": "Employees",
+  "tableDesc": "The Employees table contains information about employees of the Northwind Traders.",
+  "records": [
+    {
+      "TableName": "Employees",
+      "ColumnName": "EmployeeID",
+      "DataType": "int",
+      "Constraints": "Primary Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "A unique number automatically assigned to each new employee."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "LastName",
+      "DataType": "varchar",
+      "Constraints": "Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The last name of the employee."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "FirstName",
+      "DataType": "varchar",
+      "Constraints": "",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The first name of the employee."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "Title",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The title of the employee."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "TitleOfCourtesy",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The courtesy title of the employee."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "BirthDate",
+      "DataType": "datetime",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The birthdate of the employee."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "HireDate",
+      "DataType": "datetime",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The hire date of the employee."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "Address",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The street address or post-office box of the employee."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "City",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The city where the employee is located."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "Region",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The region or state where the employee is located."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "PostalCode",
+      "DataType": "varchar",
+      "Constraints": "Index, Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The postal code or ZIP code of the employee."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "Country",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The country where the employee is located."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "HomePhone",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The home phone number of the employee, including country code or area code."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "Extension",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The internal telephone extension number of the employee."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "Photo",
+      "DataType": "image",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "A picture of the employee."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "Notes",
+      "DataType": "text",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "General information about the employee's background."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "ReportsTo",
+      "DataType": "int",
+      "Constraints": "Foreign Key, Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The EmployeeID of the employee's supervisor."
+    },
+    {
+      "TableName": "Employees",
+      "ColumnName": "PhotoPath",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The file path or URL of the employee's photo."
+    }
+  ]
+}

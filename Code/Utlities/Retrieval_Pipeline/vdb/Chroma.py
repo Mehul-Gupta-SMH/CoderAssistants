@@ -17,7 +17,7 @@ import uuid
 
 
 # ------------------------------------------------------------------
-def getclient(session_type = 'local', **sessions_args):
+def getclient(sessions_args, session_type = 'local'):
     """
     Function to retrieve a client based on session type.
 
@@ -53,21 +53,26 @@ def getclient(session_type = 'local', **sessions_args):
             # Raise an error if host information is inaccessible
             raise ValueError(f"Host information not accessible: {sessions_args}")
 
+
+    print("----------------------------------------------")
+    print("Client check : ",client.heartbeat())
+    print("----------------------------------------------")
+
     return client
 
 
 # ------------------------------------------------------------------
-def addData(client,data: list, metadata: dict):
+def addData(client, data: list, metadata: dict):
     """
     Add data to a collection using the provided client.
 
     Args:
-        - client: Client object to interact with the database.
-        - data (list): List of dictionaries, where each dictionary represents a datapoint with keys 'chunked_data', 'embedding', 'metadata'.
-        - metadata (dict
+        client: Client object to interact with the database.
+        data (list): List of dictionaries, where each dictionary represents a datapoint with keys 'chunked_data', 'embedding', 'metadata'.
+        metadata (dict
 
     Returns:
-        - str: Message indicating the success of the operation.
+        str: Message indicating the success of the operation.
 
     Example Usage:
         ```
@@ -89,19 +94,23 @@ def addData(client,data: list, metadata: dict):
     except:
         collection = client.create_collection(
             name=metadata['collection_name'],
-            metadata={"hnsw:space": metadata.get('collection_name','cosine')} # 'cosine' is the default space type
+            metadata={"hnsw:space": metadata.get('sim_metric','cosine')} # 'cosine' is the default space type
         )
 
     # Add each datapoint to the collection
     for datapoint in data:
-        collection.add(
-            documents=datapoint['chunked_data'],
+        # print("----------------------------------------------")
+        # print("Data to be : ", datapoint)
+        # print("----------------------------------------------")
+
+        collection.upsert(
             embeddings=datapoint['embedding'],
             metadatas=datapoint['metadata'],
-            ids= datapoint['metadata']
+            documents=datapoint['documents'],
+            ids= datapoint['id']
         )
 
-    return "Success"
+    return f"Success : Added into Collection {metadata['collection_name']}"
 
 
 # ------------------------------------------------------------------

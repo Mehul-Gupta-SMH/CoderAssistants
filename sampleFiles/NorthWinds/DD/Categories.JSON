@@ -1,0 +1,46 @@
+{
+  "tableName": "Categories",
+  "tableDesc": "The Categories table stores information about food categories for Northwind products. Each category represents a group of related food items.",
+  "records": [
+    {
+      "TableName": "Categories",
+      "ColumnName": "CategoryID",
+      "DataType": "int",
+      "Constraints": "Primary Key",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Unique identifier for each category."
+    },
+    {
+      "TableName": "Categories",
+      "ColumnName": "CategoryName",
+      "DataType": "varchar",
+      "Constraints": "Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Name of the food category."
+    },
+    {
+      "TableName": "Categories",
+      "ColumnName": "Description",
+      "DataType": "text",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Detailed description of the food category, including its characteristics and types of food items it represents."
+    },
+    {
+      "TableName": "Categories",
+      "ColumnName": "Picture",
+      "DataType": "image",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "A graphical representation (image) associated with the food category, providing visual identification."
+    }
+  ]
+}

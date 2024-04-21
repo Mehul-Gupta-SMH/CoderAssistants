@@ -66,7 +66,7 @@ print(BuildMetadataObj.indexinfo(vTableDDL, vTableInsert))
 from Code.Utlities.base_utils import accessDB
 
 # Vector database to index table descriptions
-# from Code.Utlities.Retrieval_Pipeline.RAGPipeline import ManageInformation
+from Code.Utlities.Retrieval_Pipeline.RAGPipeline import ManageInformation
 
 # Heuristic based solutions
 from Code.Utlities.SQLSupportBuilder.buildNew.heuristic.SQLCodeParseHeuristic import SQLCodeParse as SQP
@@ -77,7 +77,8 @@ from Code.Utlities.SQLSupportBuilder.buildNew.lm_based.GenerateDD import DataDic
 
 
 vdb_metadata = {
-
+    "collection_name" : "tableScan",
+    "sim_metric" : "cosine"
 }
 
 class buildMD:
@@ -181,7 +182,7 @@ class buildMD:
 
         return TableDesc, TableGenDD
 
-    def indexinfo(self, tableDDL: str, tableInsert: str):
+    def indexinfo(self, tableDDL: str, tableInsert: str, tableAttr: dict):
         """
         Indexes information and stores metadata in the database.
 
@@ -199,10 +200,10 @@ class buildMD:
         self.DBObj.delete_data(self.tableDescName, {'tableName':TableDesc['TableName']})
         self.DBObj.delete_data(self.tableColName, {'TableName':TableDesc['TableName']})
 
-        print("Table Desc : ", TableDesc)
-        print("Table Gen DD : ", "\n -> ".join(map(str,TableGenDD)))
-        print("Table Gen DD type :",type(TableGenDD))
-        print("Table Gen DD type :",type(TableGenDD[0]))
+        # print("Table Desc : ", TableDesc)
+        # print("Table Gen DD : ", "\n -> ".join(map(str,TableGenDD)))
+        # print("Table Gen DD type :",type(TableGenDD))
+        # print("Table Gen DD type :",type(TableGenDD[0]))
 
         # Inserting data for Table Desc in database
         self.DBObj.post_data(self.tableDescName, [TableDesc])
@@ -210,10 +211,19 @@ class buildMD:
         # Inserting data for Table Column metadata into database
         self.DBObj.post_data(self.tableColName, TableGenDD)
 
+        # Collate Table Level metadata
+        tableMD = {
+            "TableName" : TableDesc["TableName"],
+            "ENV" : "PROD",
+            "TType" : "User"
+        }
+
+        tableMD = {**tableMD, **tableAttr}
+
         # Index table description into VectorDB
-        # vdbObj = ManageInformation()
-        # vdbObj.initialize_client(path = "Path to DB")
-        # vdbObj.add_new_data(TableDesc["tableName"], TableDesc, vdb_metadata)
+        vdbObj = ManageInformation()
+        vdbObj.initialize_client()
+        vdbObj.add_new_data([TableDesc['Desc']], [tableMD], vdb_metadata)
 
         return "Process Complete"
 
@@ -259,7 +269,8 @@ GROUP BY
     c.campaign_id, c.campaign_name, c.start_date, c.end_date, c.budget, c.status;
 """
 
+tableAttr = {}
 
 BuildMetadataObj = buildMD(algo_type="LLM",algo_control={'model':"GOOGLE"})
 
-print(BuildMetadataObj.indexinfo(vTableDDL, vTableInsert))
+print(BuildMetadataObj.indexinfo(vTableDDL, vTableInsert, tableAttr))

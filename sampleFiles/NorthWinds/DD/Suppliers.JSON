@@ -1,0 +1,126 @@
+{
+  "tableName": "Suppliers",
+  "tableDesc": "The Suppliers table contains information about suppliers of products.",
+  "records": [
+    {
+      "TableName": "Suppliers",
+      "ColumnName": "SupplierID",
+      "DataType": "int",
+      "Constraints": "Primary Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The unique identifier of the supplier, automatically assigned to new suppliers."
+    },
+    {
+      "TableName": "Suppliers",
+      "ColumnName": "CompanyName",
+      "DataType": "varchar",
+      "Constraints": "Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The name of the supplier company."
+    },
+    {
+      "TableName": "Suppliers",
+      "ColumnName": "ContactName",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The name of the contact person at the supplier company."
+    },
+    {
+      "TableName": "Suppliers",
+      "ColumnName": "ContactTitle",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The title of the contact person at the supplier company."
+    },
+    {
+      "TableName": "Suppliers",
+      "ColumnName": "Address",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The address of the supplier, including street or post-office box."
+    },
+    {
+      "TableName": "Suppliers",
+      "ColumnName": "City",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The city where the supplier is located."
+    },
+    {
+      "TableName": "Suppliers",
+      "ColumnName": "Region",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The region or state where the supplier is located."
+    },
+    {
+      "TableName": "Suppliers",
+      "ColumnName": "PostalCode",
+      "DataType": "varchar",
+      "Constraints": "Nullable, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The postal code or ZIP code of the supplier."
+    },
+    {
+      "TableName": "Suppliers",
+      "ColumnName": "Country",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The country where the supplier is located."
+    },
+    {
+      "TableName": "Suppliers",
+      "ColumnName": "Phone",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The phone number of the supplier, including country code or area code."
+    },
+    {
+      "TableName": "Suppliers",
+      "ColumnName": "Fax",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The fax number of the supplier, including country code or area code."
+    },
+    {
+      "TableName": "Suppliers",
+      "ColumnName": "HomePage",
+      "DataType": "ntext",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The homepage URL of the supplier on the World Wide Web."
+    }
+  ]
+}

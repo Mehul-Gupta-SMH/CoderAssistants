@@ -121,8 +121,10 @@ class DataDictionary:
             if colMD["type_of_logic"] == "direct":
                 continue
             else:
+                print("----------------------------------------------")
                 print("Column : ",colMD['columnName'])
                 print("Column Desc : Gonna Cost : Invoking LLM")
+                print("----------------------------------------------")
                 # Setting up prompt
                 with open(r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\Code\Utlities\Configs\apiTemplates\taskGenerateColumnDesc.txt","r") as promptTmplt_fobj:
                     prompt_template = promptTmplt_fobj.read()
@@ -155,8 +157,10 @@ class DataDictionary:
         Returns:
             str: Generated table description.
         """
-
+        print("----------------------------------------------")
         print("Table Desc : Gonna Cost : Invoking LLM")
+        print("----------------------------------------------")
+
         # Setting up prompt
         with open(r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\Code\Utlities\Configs\apiTemplates\taskGenerateTableSummary.txt","r") as promptTmplt_fobj:
             prompt_template = promptTmplt_fobj.read()

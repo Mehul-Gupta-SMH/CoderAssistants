@@ -1,0 +1,146 @@
+{
+  "tableName": "Orders",
+  "tableDesc": "The Orders table contains information about orders placed by customers.",
+  "records": [
+    {
+      "TableName": "Orders",
+      "ColumnName": "OrderID",
+      "DataType": "int",
+      "Constraints": "Primary Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The unique identifier of the order."
+    },
+    {
+      "TableName": "Orders",
+      "ColumnName": "CustomerID",
+      "DataType": "varchar",
+      "Constraints": "Foreign Key, Index, Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "Customers",
+      "Desc": "The unique identifier of the customer who placed the order."
+    },
+    {
+      "TableName": "Orders",
+      "ColumnName": "EmployeeID",
+      "DataType": "int",
+      "Constraints": "Foreign Key, Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "Employees",
+      "Desc": "The unique identifier of the employee who processed the order."
+    },
+    {
+      "TableName": "Orders",
+      "ColumnName": "OrderDate",
+      "DataType": "datetime",
+      "Constraints": "Nullable, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The date when the order was placed."
+    },
+    {
+      "TableName": "Orders",
+      "ColumnName": "RequiredDate",
+      "DataType": "datetime",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The date by which the order is required."
+    },
+    {
+      "TableName": "Orders",
+      "ColumnName": "ShippedDate",
+      "DataType": "datetime",
+      "Constraints": "Nullable, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The date when the order was shipped."
+    },
+    {
+      "TableName": "Orders",
+      "ColumnName": "ShipVia",
+      "DataType": "int",
+      "Constraints": "Foreign Key, Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "Shippers",
+      "Desc": "The unique identifier of the shipper used for shipping the order."
+    },
+    {
+      "TableName": "Orders",
+      "ColumnName": "Freight",
+      "DataType": "decimal",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The cost of shipping the order."
+    },
+    {
+      "TableName": "Orders",
+      "ColumnName": "ShipName",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The name of the person or company to receive the shipment."
+    },
+    {
+      "TableName": "Orders",
+      "ColumnName": "ShipAddress",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The street address of the recipient, excluding post-office box."
+    },
+    {
+      "TableName": "Orders",
+      "ColumnName": "ShipCity",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The city where the recipient is located."
+    },
+    {
+      "TableName": "Orders",
+      "ColumnName": "ShipRegion",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The region or state where the recipient is located."
+    },
+    {
+      "TableName": "Orders",
+      "ColumnName": "ShipPostalCode",
+      "DataType": "varchar",
+      "Constraints": "Nullable, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The postal code or ZIP code of the recipient."
+    },
+    {
+      "TableName": "Orders",
+      "ColumnName": "ShipCountry",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The country where the recipient is located."
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "tableName": "Customers",
+  "tableDesc": "The Customers table contains information about customers who purchase products from the Northwind Traders.",
+  "records": [
+    {
+      "TableName": "Customers",
+      "ColumnName": "CustomerID",
+      "DataType": "varchar",
+      "Constraints": "Primary Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "A unique five-character code based on the customer name."
+    },
+    {
+      "TableName": "Customers",
+      "ColumnName": "CompanyName",
+      "DataType": "varchar",
+      "Constraints": "Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The name of the customer's company."
+    },
+    {
+      "TableName": "Customers",
+      "ColumnName": "ContactName",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The name of the primary contact person at the company."
+    },
+    {
+      "TableName": "Customers",
+      "ColumnName": "ContactTitle",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The title of the primary contact person."
+    },
+    {
+      "TableName": "Customers",
+      "ColumnName": "Address",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The street address or post-office box of the customer."
+    },
+    {
+      "TableName": "Customers",
+      "ColumnName": "City",
+      "DataType": "varchar",
+      "Constraints": "Index, Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The city where the customer is located."
+    },
+    {
+      "TableName": "Customers",
+      "ColumnName": "Region",
+      "DataType": "varchar",
+      "Constraints": "Index, Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The state or province where the customer is located."
+    },
+    {
+      "TableName": "Customers",
+      "ColumnName": "PostalCode",
+      "DataType": "varchar",
+      "Constraints": "Index, Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The postal code or ZIP code of the customer."
+    },
+    {
+      "TableName": "Customers",
+      "ColumnName": "Country",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The country where the customer is located."
+    },
+    {
+      "TableName": "Customers",
+      "ColumnName": "Phone",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The phone number of the customer, including the country code or area code."
+    },
+    {
+      "TableName": "Customers",
+      "ColumnName": "Fax",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The fax number of the customer, including the country code or area code."
+    }
+  ]
+}

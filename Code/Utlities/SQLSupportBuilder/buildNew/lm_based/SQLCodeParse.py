@@ -88,7 +88,9 @@ class CodeParse:
         Raises:
             ValueError: If the API call fails.
         """
-        print("Gonna Cost : Invoking LLM")
+        print("----------------------------------------------")
+        print("Parse SQL Query : Gonna Cost : Invoking LLM")
+        print("----------------------------------------------")
         # Setting up prompt
         with open(r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\Code\Utlities\Configs\apiTemplates\taskTemplate.txt","r") as promptTmplt_fobj:
             prompt_template = promptTmplt_fobj.read()
