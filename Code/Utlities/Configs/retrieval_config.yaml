@@ -1,3 +1,6 @@
+models_repo:
+  path : 'C:/Users/mehul/Documents/Projects - GIT/Agents/Decompose KG from Code/pythonProject/Model'
+
 # ---------------------------------------------------------
 
 
@@ -17,7 +20,8 @@ scoring:
 
 
 vectordb:
-  name: 'chromabd'
+  name: 'chroma'
+  path: 'C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\tableMetadata'
 
 
 # ---------------------------------------------------------

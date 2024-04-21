@@ -1,0 +1,106 @@
+{
+  "tableName": "Products",
+  "tableDesc": "The Products table contains information about the products available for sale.",
+  "records": [
+    {
+      "TableName": "Products",
+      "ColumnName": "ProductID",
+      "DataType": "int",
+      "Constraints": "Primary Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The unique identifier of the product, automatically assigned to new products."
+    },
+    {
+      "TableName": "Products",
+      "ColumnName": "ProductName",
+      "DataType": "nvarchar",
+      "Constraints": "Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The name of the product."
+    },
+    {
+      "TableName": "Products",
+      "ColumnName": "SupplierID",
+      "DataType": "int",
+      "Constraints": "Foreign Key, Index, Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "Suppliers",
+      "Desc": "The unique identifier of the supplier of the product."
+    },
+    {
+      "TableName": "Products",
+      "ColumnName": "CategoryID",
+      "DataType": "int",
+      "Constraints": "Foreign Key, Index, Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "Categories",
+      "Desc": "The unique identifier of the category to which the product belongs."
+    },
+    {
+      "TableName": "Products",
+      "ColumnName": "QuantityPerUnit",
+      "DataType": "nvarchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The quantity and type of units per product (e.g., '24-count case', '1-liter bottle')."
+    },
+    {
+      "TableName": "Products",
+      "ColumnName": "UnitPrice",
+      "DataType": "money",
+      "Constraints": "Nullable, Default: 0",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The price per unit of the product."
+    },
+    {
+      "TableName": "Products",
+      "ColumnName": "UnitsInStock",
+      "DataType": "smallint",
+      "Constraints": "Nullable, Default: 0",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The number of units currently in stock."
+    },
+    {
+      "TableName": "Products",
+      "ColumnName": "UnitsOnOrder",
+      "DataType": "smallint",
+      "Constraints": "Nullable, Default: 0",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The number of units currently on order."
+    },
+    {
+      "TableName": "Products",
+      "ColumnName": "ReorderLevel",
+      "DataType": "smallint",
+      "Constraints": "Nullable, Default: 0",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The minimum number of units to maintain in stock."
+    },
+    {
+      "TableName": "Products",
+      "ColumnName": "Discontinued",
+      "DataType": "bit",
+      "Constraints": "Default: 0",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "Indicates whether the product is discontinued (1 means discontinued, 0 means available)."
+    }
+  ]
+}

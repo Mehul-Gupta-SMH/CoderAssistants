@@ -1,0 +1,36 @@
+{
+  "tableName": "Shippers",
+  "tableDesc": "The Shippers table contains information about shipping companies.",
+  "records": [
+    {
+      "TableName": "Shippers",
+      "ColumnName": "ShipperID",
+      "DataType": "int",
+      "Constraints": "Primary Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The unique identifier of the shipper, automatically assigned to new shippers."
+    },
+    {
+      "TableName": "Shippers",
+      "ColumnName": "CompanyName",
+      "DataType": "varchar",
+      "Constraints": "",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The name of the shipping company."
+    },
+    {
+      "TableName": "Shippers",
+      "ColumnName": "Phone",
+      "DataType": "varchar",
+      "Constraints": "Nullable",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The phone number of the shipping company, including country code or area code."
+    }
+  ]
+}

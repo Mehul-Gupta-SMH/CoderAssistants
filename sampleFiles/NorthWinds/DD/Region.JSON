@@ -1,0 +1,26 @@
+{
+  "tableName": "Region",
+  "tableDesc": "The Region table contains information about different regions.",
+  "records": [
+    {
+      "TableName": "Region",
+      "ColumnName": "RegionID",
+      "DataType": "int",
+      "Constraints": "Primary Key, Index",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The unique identifier of the region."
+    },
+    {
+      "TableName": "Region",
+      "ColumnName": "RegionDescription",
+      "DataType": "varchar",
+      "Constraints": "",
+      "logic": "",
+      "type_of_logic": "",
+      "base_table": "",
+      "Desc": "The description of the region."
+    }
+  ]
+}
