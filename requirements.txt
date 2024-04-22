@@ -1,5 +1,5 @@
 PyYAML~=6.0.1
 networkx~=3.2.1
-FlagEmbedding~=1.2.5
+FlagEmbedding~=1.2.9
 detoxify~=0.5.2
 transformers~=4.38.2
