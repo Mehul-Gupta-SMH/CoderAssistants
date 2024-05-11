@@ -1,9 +1,11 @@
 import os.path
 
-from autogen import AssistantAgent, UserProxyAgent, GroupChat, GroupChatManager
+from autogen import ConversableAgent, UserProxyAgent, GroupChat, GroupChatManager
 from autogen.code_utils import extract_code
 
-from CoderAssistants.Code.Utlities import base_utils
+from Code.Utlities import base_utils
+from Code.Coder.ToolBox.SQLTB import instFunctions as SQLTB
+
 
 @base_utils.log_function
 def generate_team(topic:str,team_type="python_dev",max_conv_series=20):
@@ -22,7 +24,7 @@ def generate_team(topic:str,team_type="python_dev",max_conv_series=20):
 
     for members in team_members:
         print("members :",members)
-        member_agents[members] = AssistantAgent(name=members
+        member_agents[members] = ConversableAgent(name=members
                                                 , system_message=team_members[members]['persona']
                                                 , llm_config={"config_list": config_list}
                                                 , description = team_members[members]['description']
@@ -49,6 +51,17 @@ def generate_team(topic:str,team_type="python_dev",max_conv_series=20):
     user_proxy = UserProxyAgent( "user_proxy",
                                  code_execution_config={"work_dir": "Code", "use_docker": False}
                                  )
+
+    if team_type == "sql_dev":
+
+        functionList = [functionName for functionName in dir(SQLTB) if not functionName.startswith("__")]
+
+        # for functionName in functionList:
+            # user_proxy.register_for_execution(name=functionName)(eval(f"SQLTB.{functionName}"))
+
+        user_proxy.register_function(
+            function_map={ functionName : eval(f"SQLTB.{functionName}") for functionName in functionList }
+        )
 
     user_proxy.initiate_chat(team_manager,message=topic)
 
