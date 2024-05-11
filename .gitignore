@@ -12,3 +12,6 @@ Code/Coder/.cache
 /tableMetadata
 /DBinst/cache
 Code/Utlities/Configs/model_config.yaml
+*.js
+*.js
+/Code/Utlities/Retrieval_Pipeline/relationdb/lib
