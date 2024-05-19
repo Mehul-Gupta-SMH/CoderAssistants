@@ -10,10 +10,10 @@ import os
 from pyvis.network import Network
 from itertools import combinations
 from iteration_utilities import unique_everseen
-from Code.Utlities.base_utils import get_config_val
+from Code.Utilities.base_utils import get_config_val
 
-Graphfilename = get_config_val("retrieval_config",["relationdb","path"],True)
-GraphViz = get_config_val("retrieval_config",["relationdb","viz"],True)
+Graphfilename = get_config_val("retrieval_config", ["relationdb", "path"], True)
+GraphViz = get_config_val("retrieval_config", ["relationdb", "viz"], True)
 
 # --------------------------------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ def getObj():
     """
     if os.path.exists(Graphfilename):
         # If the file exists, load the graph from the pickle file
-        with open(Graphfilename,"rb") as GObj:
+        with open(Graphfilename, "rb") as GObj:
             return pickle.load(GObj)
     else:
         # If the file doesn't exist, return an empty graph
@@ -83,7 +83,7 @@ def getRelations(GObj: nx.Graph, target_nodes: list):
     shortest_path = dict()
 
     # Generate all possible paired combinations of target nodes
-    combs = combinations(target_nodes,2)
+    combs = combinations(target_nodes, 2)
 
     # Find shortest path visiting all target nodes exactly once
     for comb in combs:
@@ -136,4 +136,4 @@ def visualizeRelations(GObj: nx.Graph):
 
 
 
-# visualizeRelations(getObj())
+# print(os.path.exists(Graphfilename))

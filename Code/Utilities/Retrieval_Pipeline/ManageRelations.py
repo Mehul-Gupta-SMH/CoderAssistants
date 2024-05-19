@@ -23,7 +23,7 @@ class Relations:
         if self.strgType == "networkx":
             self.GraphObj = networkxDB.getObj()
 
-    def addRelation(self, nodes, edges):
+    def addRelation(self, edges):
         """
         Add relations to the graph object.
 
@@ -31,8 +31,10 @@ class Relations:
             - nodes (dict): Dictionary containing node names as keys and node attributes as values.
             - edges (dict): Dictionary containing edge tuples as keys (source, target) and edge attributes as values.
         """
+        self.__instGraphObj__()
+
         if self.strgType == "networkx":
-            networkxDB.addRelations(self.GraphObj, nodes, edges)
+            networkxDB.addRelations(self.GraphObj, edges)
 
 
     def getRelation(self, target_nodes = []):
@@ -45,5 +47,16 @@ class Relations:
         returns:
             - dict: Dictionary containing retrieved relations.
         """
+        self.__instGraphObj__()
+
         if self.strgType == "networkx":
             return networkxDB.getRelations(self.GraphObj, target_nodes)
+
+
+    def visRelations(self):
+        self.__instGraphObj__()
+
+        if self.strgType == "networkx":
+            networkxDB.visualizeRelations(self.GraphObj)
+
+            return "Refreshed relations map"

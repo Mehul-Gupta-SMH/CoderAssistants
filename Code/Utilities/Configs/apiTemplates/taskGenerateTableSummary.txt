@@ -1,0 +1,22 @@
+Task-
+Generate summary for the table.
+
+Output Format-
+tableName:
+    tableDesc: Summary of the table in 100 words or fewer
+    tablePopDesc: Filters applicable on the population selection
+    tableColDesc:
+        ColName: Description of how column is derived and what that metric mean (business description)
+
+Directions-
+1. Replace the "tableName" , "ColName" placeholders with appropriate values as extracted
+2. For repeated generation use the format as given
+3. tableColDesc will only have column that are of "indirect" type
+
+Table Data Dictionary-
+<<Table Data Dictionary>>
+
+Table Insert Query-
+<<Table Insert Query>>
+
+Output-

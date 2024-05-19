@@ -27,9 +27,9 @@ Usage Example:
     >> print(SQLObj.getTableMetadata(tableDDL, tableInsert))
 """
 
-from Code.Utlities.base_utils import get_config_val
-from Code.Utlities.base_utils import cachefunc
-from Code.Utlities.apiSupport.allApi import CallLLMApi
+from Code.Utilities.base_utils import get_config_val
+from Code.Utilities.base_utils import cachefunc
+from Code.Utilities.apiSupport.allApi import CallLLMApi
 
 import requests
 import json

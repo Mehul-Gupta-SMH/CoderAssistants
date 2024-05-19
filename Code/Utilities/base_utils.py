@@ -28,7 +28,7 @@ def get_config_val(config_type: str, key_list: list, get_all=False) -> str:
 
     """
     with open(
-            r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\Code\Utlities\Configs\config_paths.yaml",
+            r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\Code\Utilities\Configs\config_paths.yaml",
             "r") as conf_pths:
         config_map = yaml.load(conf_pths, yaml.FullLoader)
 
@@ -152,7 +152,7 @@ class accessDB:
         else:
             lookupkeyslist = []
             for colname, colval in lookupDict.items():
-                lookupkeyslist.append(f"{colname} = '{colval}'")
+                lookupkeyslist.append(f"lower({colname}) = '{str(colval).lower()}'")
 
             lookupQuery = f'''SELECT { ", ".join(lookupVal) } FROM { tableName } WHERE { " AND ".join(lookupkeyslist) }'''
 

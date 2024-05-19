@@ -1,0 +1,71 @@
+Task -
+Given sql query, extract relations between tables.
+
+Output format -
+[
+    ("Table1 Name" , "Table2 Name" , ["Table1.Key - Table2.Key" , "Table1.Key2 - Table2.Key2"]),
+    ...
+]
+
+Directives -
+1. Replace "Table1 Name", "Table2 Name", "Table1.Key - Table2.Key" placeholder text with actual values
+2. Only extract the relationships as written in query
+3. Inference of unwritten relationships is undesirable
+
+------------------------------------------
+Example -
+------------------------------------------
+
+SQL Query -
+SELECT
+    orders.order_id,
+    customers.customer_name,
+    products.product_name,
+    order_details.quantity,
+    order_details.unit_price,
+    suppliers.supplier_name
+FROM
+    orders
+JOIN
+    customers ON orders.customer_id = customers.customer_id
+JOIN
+    order_details ON orders.order_id = order_details.order_id
+JOIN
+    products ON order_details.product_id = products.product_id
+JOIN
+    suppliers ON products.supplier_id = suppliers.supplier_id AND orders.order_date = suppliers.last_supplier_date
+JOIN
+    categories ON products.category_id = categories.category_id
+JOIN
+    employees AS sales_rep ON orders.sales_rep_id = sales_rep.employee_id
+LEFT JOIN
+    employees AS shipping_rep ON orders.shipping_rep_id = shipping_rep.employee_id
+JOIN
+    order_status ON orders.status_id = order_status.status_id
+WHERE
+    orders.order_date BETWEEN '2023-01-01' AND '2023-12-31'
+    AND customers.country = 'USA'
+ORDER BY
+    orders.order_id;
+
+
+Output -
+[
+["orders", "customers", ["orders.customer_id - customers.customer_id"]],
+["orders", "order_details", ["orders.order_id - order_details.order_id"]],
+["order_details", "products", ["order_details.product_id - products.product_id"]],
+["products", "suppliers", ["products.supplier_id - suppliers.supplier_id"]],
+["suppliers", "orders", ["suppliers.last_supplier_date - orders.order_date"]],
+["products", "categories", ["products.category_id - categories.category_id"]],
+["orders", "employees", ["orders.sales_rep_id - sales_rep.employee_id"]],
+["orders", "order_status", ["orders.status_id - order_status.status_id"]]
+]
+
+------------------------------------------
+Actual -
+------------------------------------------
+
+SQL Query -
+<<SQLQuery>>
+
+Output -

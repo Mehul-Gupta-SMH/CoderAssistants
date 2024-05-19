@@ -1,13 +1,13 @@
 import os
 import jsonschema
 import json
-from Code.Utlities.base_utils import accessDB
-from Code.Utlities.Retrieval_Pipeline.RAGPipeline import ManageInformation
+from Code.Utilities.base_utils import accessDB
+from Code.Utilities.Retrieval_Pipeline.RAGPipeline import ManageInformation
 
 vdb_metadata = {
     "collection_name" : "tableScan",
     "sim_metric" : "cosine",
-    "n_chunks" : 100
+    "n_chunks" : 3
 }
 
 # Define the JSON schema
@@ -147,54 +147,42 @@ class importDD:
             # Index table description into VectorDB
             vdbObj = ManageInformation()
             vdbObj.initialize_client()
-            vdbObj.add_new_data([importedJsonData['tableDesc']], [tableMD], vdb_metadata)
+            print(vdbObj.add_new_data(importedJsonData['tableDesc'], tableMD, vdb_metadata))
         except Exception as e:
             print(str(e))
 
 
-# importDataObj = importDD()
+importDataObj = importDD()
 
 # importDataObj.importData(r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\sampleFiles\existingDD\Impressions_Table.JSON")
 # importDataObj.importData(r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\sampleFiles\existingDD\Campaigns_Table.JSON")
 # importDataObj.importData(r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\sampleFiles\existingDD\Actions_Table.JSON")
 
 
-# base_path = r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\sampleFiles\NorthWinds\DD"
+base_path = r"C:\Users\mehul\Documents\Projects - GIT\Agents\Decompose KG from Code\pythonProject\CoderAssistants\sampleFiles\NorthWinds\DD"
+
+for files in os.listdir(base_path):
+    importDataObj.importData(os.path.join(base_path,files))
+
+# vdbObj = ManageInformation()
+# vdbObj.initialize_client()
 #
-# for files in os.listdir(base_path):
-#     importDataObj.importData(os.path.join(base_path,files))
-
-vdbObj = ManageInformation()
-vdbObj.initialize_client()
-
-# query = "Write me a query that calculates all the impressions for all campaigns."
-
+# # query = "Write me a query that calculates all the impressions for all campaigns."
+#
+# # query = """
+# # For their annual review of the company pricing strategy, the Product Team wants to look at the products that are currently being offered for a specific price range ($20 to $50). In order to help them they asked you to provide them with a list of products with the following information:
+# #
+# # their name
+# # their unit price
+# # """
+#
 # query = """
-# For their annual review of the company pricing strategy, the Product Team wants to look at the products that are currently being offered for a specific price range ($20 to $50). In order to help them they asked you to provide them with a list of products with the following information:
-#
-# their name
-# their unit price
+# Give me product wise split for each territory.
 # """
-
-query = """
-The Logistics Team wants to do a retrospection of their performances for the year 1998, in order to identify for which countries they didn’t perform well. They asked you to provide them a list of countries with the following information:
-
-their average days between the order date and the shipping date (formatted to have only 2 decimals)
-
-their total number of orders (based on the order date) Filtered on the following conditions:
-
-the year of order date is 1998
-
-their average days between the order date and the shipping date is greater or equal 5 days
-
-their total number of orders is greater than 10 orders
-
-Finally order the results by country name in an ascending order (lowest first).
-"""
-
-results = vdbObj.get_data(query, vdb_metadata)
-
-for vals in results.values():
-    print(f"Table Name : {vals['metadata']['TableName']}")
-    print(vals)
-    print()
+#
+# results = vdbObj.get_data(query, vdb_metadata)
+#
+# for vals in results.values():
+#     print(f"Table Name : {vals['metadata']['TableName']}")
+#     print(vals)
+#     print()

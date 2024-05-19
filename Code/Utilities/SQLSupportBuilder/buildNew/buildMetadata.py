@@ -63,17 +63,17 @@ print(BuildMetadataObj.indexinfo(vTableDDL, vTableInsert))
 """
 
 # SQL Database to store data
-from Code.Utlities.base_utils import accessDB
+from Code.Utilities.base_utils import accessDB
 
 # Vector database to index table descriptions
-from Code.Utlities.Retrieval_Pipeline.RAGPipeline import ManageInformation
+from Code.Utilities.Retrieval_Pipeline.RAGPipeline import ManageInformation
 
 # Heuristic based solutions
-from Code.Utlities.SQLSupportBuilder.buildNew.heuristic.SQLCodeParseHeuristic import SQLCodeParse as SQP
+from Code.Utilities.SQLSupportBuilder.buildNew.heuristic.SQLCodeParseHeuristic import SQLCodeParse as SQP
 
 # LLM based solutions
-from Code.Utlities.SQLSupportBuilder.buildNew.lm_based.SQLCodeParse import CodeParse as CP
-from Code.Utlities.SQLSupportBuilder.buildNew.lm_based.GenerateDD import DataDictionary as DD
+from Code.Utilities.SQLSupportBuilder.buildNew.lm_based.SQLCodeParse import CodeParse as CP
+from Code.Utilities.SQLSupportBuilder.buildNew.lm_based.GenerateDD import DataDictionary as DD
 
 
 vdb_metadata = {

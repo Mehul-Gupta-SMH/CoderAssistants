@@ -19,7 +19,7 @@ Methods:
 """
 
 import requests
-from Code.Utlities.base_utils import get_config_val
+from Code.Utilities.base_utils import get_config_val
 
 
 class CallLLMApi:
@@ -99,7 +99,7 @@ class CallLLMApi:
         data = response.json()
 
         if response.status_code == 200:
-            if self.llmService.lower() in ("open_ai","groq"):
+            if self.llmService.lower() in ("open_ai", "groq"):
                 return data['choices'][0]['message']['content']
             if self.llmService.lower() == "anthropic":
                 return data['completion']

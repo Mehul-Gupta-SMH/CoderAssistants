@@ -36,10 +36,10 @@ Usage Example:
     >>    print(dd_obj.Generate(table_name, table_metadata, table_insert_query))
 """
 
-from Code.Utlities.base_utils import get_config_val
-from Code.Utlities.base_utils import accessDB
-from Code.Utlities.base_utils import cachefunc
-from Code.Utlities.apiSupport.allApi import CallLLMApi
+from Code.Utilities.base_utils import get_config_val
+from Code.Utilities.base_utils import accessDB
+from Code.Utilities.base_utils import cachefunc
+from Code.Utilities.apiSupport.allApi import CallLLMApi
 
 
 memoizer = cachefunc()

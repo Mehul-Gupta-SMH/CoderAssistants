@@ -1,6 +1,6 @@
 import re
 
-from Code.Utlities.SQLSupportBuilder.GetColData import extract_ddl_info
+from Code.Utilities.SQLSupportBuilder.GetColData import extract_ddl_info
 
 class TableMetadata:
 

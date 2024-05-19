@@ -12,8 +12,8 @@ import uuid
 
 # --------------------------------------------------------------------------------------------
 
-from Code.Utlities.Retrieval_Pipeline.vdb import Chroma
-from Code.Utlities.base_utils import get_config_val
+from Code.Utilities.Retrieval_Pipeline.vdb import Chroma
+from Code.Utilities.base_utils import get_config_val
 
 # --------------------------------------------------------------------------------------------
 models_repo = get_config_val("retrieval_config",["models_repo"],True)
@@ -168,7 +168,7 @@ class ManageInformation:
         """
         if self.dbName == 'chroma':
             self.client = Chroma.getclient(sessions_args = {
-                                                                'path':vectordb_configs['path'],
+                                                                'path':vectordb_configs["path"],
                                                                 'host':"0.0.0.0",
                                                                 'port':"5432"
                                                             },
