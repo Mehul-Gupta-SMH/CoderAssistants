@@ -3,7 +3,7 @@ import os.path
 from autogen import ConversableAgent, UserProxyAgent, GroupChat, GroupChatManager
 from autogen.code_utils import extract_code
 
-from Code.Utlities import base_utils
+from Code.Utilities import base_utils
 from Code.Coder.ToolBox.SQLTB import instFunctions as SQLTB
 
 
@@ -11,6 +11,10 @@ from Code.Coder.ToolBox.SQLTB import instFunctions as SQLTB
 def generate_team(topic:str,team_type="python_dev",max_conv_series=20):
 
     print("Generating Team : ",team_type)
+
+    if team_type == "sql_dev":
+        functionList = [functionName for functionName in dir(SQLTB) if not functionName.startswith("__")]
+        function_map = { functionName : eval(f"SQLTB.{functionName}") for functionName in functionList }
 
     config_list = [ {'model': base_utils.get_config_val(config_type="model_config",key_list=["OPEN_AI","model_name"]),
                      'api_key': base_utils.get_config_val(config_type="model_config",key_list=["OPEN_AI","api_key"])} ]
@@ -28,6 +32,7 @@ def generate_team(topic:str,team_type="python_dev",max_conv_series=20):
                                                 , system_message=team_members[members]['persona']
                                                 , llm_config={"config_list": config_list}
                                                 , description = team_members[members]['description']
+                                                , function_map = function_map
                                                 )
 
     for members in team_members:
@@ -43,7 +48,7 @@ def generate_team(topic:str,team_type="python_dev",max_conv_series=20):
                           , max_round=max_conv_series
                           , allowed_or_disallowed_speaker_transitions = disallowed_speaker_transitions
                           , speaker_transitions_type = "disallowed"
-                          ,speaker_selection_method='auto')
+                          , speaker_selection_method='auto')
 
     team_manager = GroupChatManager(groupchat=groupchat, llm_config={"config_list": config_list},
                                     system_message=team_manager["persona"])
@@ -52,16 +57,7 @@ def generate_team(topic:str,team_type="python_dev",max_conv_series=20):
                                  code_execution_config={"work_dir": "Code", "use_docker": False}
                                  )
 
-    if team_type == "sql_dev":
-
-        functionList = [functionName for functionName in dir(SQLTB) if not functionName.startswith("__")]
-
-        # for functionName in functionList:
-            # user_proxy.register_for_execution(name=functionName)(eval(f"SQLTB.{functionName}"))
-
-        user_proxy.register_function(
-            function_map={ functionName : eval(f"SQLTB.{functionName}") for functionName in functionList }
-        )
+    user_proxy.register_function(function_map= function_map)
 
     user_proxy.initiate_chat(team_manager,message=topic)
 

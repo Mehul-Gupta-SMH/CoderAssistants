@@ -1,0 +1,16 @@
+{
+  "endpoint" : "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent",
+
+  "headers": {
+    "Content-Type": "application/json",
+    "x-goog-api-key": "<<api_key>>"
+  },
+
+  "payload":
+    {"contents":[
+      {"role": "user",
+        "parts":[{"text": "<<input_text>>"}]
+      }
+    ]},
+
+}

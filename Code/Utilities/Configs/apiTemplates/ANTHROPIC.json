@@ -1,0 +1,16 @@
+{
+  "endpoint" : "https://api.anthropic.com/v1/complete",
+
+  "headers": {
+    "x-api-key": "<<api_key>>",
+    "Content-Type": "application/json",
+    "anthropic-version": "2023-06-01",
+  },
+
+  "payload": {
+    "prompt": "\n\nHuman: <<input_text>> \n\nAssistant:",
+    "model": "<<model>>",
+    "max_tokens_to_sample": 1000,
+    "temperature": 0
+  }
+}

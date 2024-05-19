@@ -1,10 +1,3 @@
-
-### this will use parts of data governance project initiative
-# ERD will help generate relationships between table
-# Get table descriptions
-# Also, NetworkX will have column descriptions and others as part of the nodes attributes
-# Filtering mechanism for the attributes can also be built separately, using scoring mechanism developed for semantic similarity and reranking
-
 """
 Module for providing support for SQL query building. This module contains classes and methods
 to provide necessary components for building SQL queries.
@@ -15,8 +8,9 @@ Class:
 
 
 import json
-
+from Code.Utilities.base_utils import get_config_val, accessDB
 from Code.Utilities.Retrieval_Pipeline import RAGPipeline, ManageRelations
+
 
 
 
@@ -47,15 +41,27 @@ class SQLBuilderSupport:
         """
         self.user_query = None
         self.table_list = {
-            "direct" : None,
-            "intermediate" : None
+            "direct" : {},
+            "intermediate" : {}
         }
         self.join_keys = None
         self.table_metadata = {}
 
+        self.vdb_config = get_config_val("retrieval_config",["vectordb"],True)
+        self.tmddb_config = get_config_val("retrieval_config",["tableMDdb"],True)
+
+        self.DBObj = accessDB(self.tmddb_config['info_type'], self.tmddb_config['dbName'])
 
     def __filterRelevantResults__(self, results_w_scores):
-        pass
+
+        filtered_results_dict = {}
+        for vals in results_w_scores.values():
+            filtered_results_dict[vals['metadata']['TableName']] = {
+                "description": vals['data'],
+                "columns": {}
+            }
+
+        return filtered_results_dict
 
     def __getRelevantTables__(self):
         """
@@ -68,11 +74,11 @@ class SQLBuilderSupport:
         # Initializing a ManageInformation object for data retrieval
         RetrievalObj = RAGPipeline.ManageInformation()
 
-        # Initializing the client with a specified path
-        RetrievalObj.initialize_client("path")
+        # Initializing the client
+        RetrievalObj.initialize_client()
 
         # Retrieving data based on the user query
-        results_scored = RetrievalObj.get_data(self.user_query, "vdb_metadata")
+        results_scored = RetrievalObj.get_data(self.user_query, self.vdb_config["metadata"])
 
         # Performing filtering on the retrieved results
         filtered_results = self.__filterRelevantResults__(results_scored)
@@ -92,10 +98,18 @@ class SQLBuilderSupport:
         RelationsObj = ManageRelations.Relations(strgType = "networkx")
 
         # Retrieving table relations and associated join keys
-        self.join_keys = RelationsObj.getRelation(self.table_list["direct"])
+        self.join_keys = RelationsObj.getRelation(list(self.table_list["direct"].keys()))
 
         # Updating the 'intermediate' table list attribute with tables not in the 'direct' table list
-        self.table_list["intermediate"] = [tables for tables in self.join_keys if tables not in self.table_list["direct"]]
+        for tables in self.join_keys:
+            sourceTable = tables['source']
+            targetTable = tables['target']
+
+            if sourceTable not in self.table_list["direct"].keys() and sourceTable not in self.table_list["intermediate"].keys():
+                self.table_list["intermediate"] = {sourceTable : { "description": "", "columns": {} } }
+
+            if targetTable not in self.table_list["direct"].keys() and targetTable not in self.table_list["intermediate"].keys():
+                self.table_list["intermediate"] = {targetTable : { "description": "", "columns": {} } }
 
 
     def __getInterTablesDesc__(self):
@@ -105,13 +119,9 @@ class SQLBuilderSupport:
         Returns:
             dict: A dictionary containing descriptions for intermediate tables.
         """
-        # Opening the file containing descriptions for all tables
-        with open("path to all table desc","r") as tabledescFObj:
-            tableDescDict = json.load(tabledescFObj)
-
-            # Updating descriptions for intermediate tables
-            for table,_ in self.table_list["intermediate"].items():
-                self.table_list["intermediate"][table]["desc"] = tableDescDict[table]
+        # Updating descriptions for intermediate tables
+        for table,_ in self.table_list["intermediate"].items():
+            self.table_list["intermediate"][table]["description"] = self.DBObj.get_data( tableName=self.tmddb_config['tableDescName'], lookupDict={'tableName':table}, lookupVal=['Desc',] )
 
     def __filterAdditionalColumns__(self, tableColDict: dict):
         """
@@ -136,18 +146,14 @@ class SQLBuilderSupport:
         Returns:
             dict: A dictionary containing the list of columns for each table.
         """
+        # Iterating over table types and their corresponding dictionaries
 
-        # Opening the file containing metadata for all tables
-        with open("path to all table desc","r") as tablemetadataFObj:
-            tableMetadataDict = json.load(tablemetadataFObj)
-
-            # Iterating over table types and their corresponding dictionaries
-            for ttype, table_dict in self.table_list.items():
-                for table, tablemd in table_dict.items():
-                    # Extracting column metadata for the current table
-                    fullColMetadata = tableMetadataDict[table]
-                    # Updating the 'columns' attribute for the current table after filtering additional columns
-                    self.table_list[ttype][table]['columns'] = self.__filterAdditionalColumns__(tableColDict)
+        for ttype, table_dict in self.table_list.items():
+            for table, tablemd in table_dict.items():
+                # Extracting column metadata for the current table
+                fullColMetadata = self.DBObj.get_data( tableName=self.tmddb_config['tableColName'], lookupDict={'TableName':table}, lookupVal=['ColumnName','DataType','Constraints','Desc'] )
+                # Updating the 'columns' attribute for the current table after filtering additional columns
+                self.table_list[ttype][table]['columns'] = self.__filterAdditionalColumns__(fullColMetadata)
 
 
     def getBuildComponents(self, user_query: str) -> dict:
@@ -170,18 +176,29 @@ class SQLBuilderSupport:
         # Get relevant tables
         self.__getRelevantTables__()
 
+        print("Scanned Relevant Table")
+        print(self.table_list)
+
         # Get relations between tables
         self.__getTableRelations__()
+
+        print("Scanned Relations between tables")
+        print(self.join_keys)
 
         # Get info for intermediate tables
         self.__getInterTablesDesc__()
 
+        print("Scanned intermediate tables required for joins")
+        print(self.table_list)
+
         # Get relevant column list
         self.__getTablesColList__()
+
+        print("Scanned all tables metadata")
+        print(self.table_metadata)
 
         return {
             "user_query" : self.user_query,
             "table_list" : self.table_list,
             "join_keys" : self.join_keys,
-            "table_metadata" : self.table_metadata
         }

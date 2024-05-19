@@ -1,0 +1,38 @@
+Task -
+Give column metadata, generate a column description in YAML format.
+
+Output format -
+    Column Name:
+      Description: Description of the column generated using the logic and base column descriptions
+
+Directives -
+1. Replace 'Column Name' placeholder text with actual values
+2. Description of the column should contain business logic based upon the business logic of base table columns and how they are being consumed which can be identified with the logic
+
+------------------------------------------
+Example -
+------------------------------------------
+
+Column Metadata -
+salary:
+    DataType: DECIMAL(10, 2)
+    constraints:
+    logic: e.years_of_experience * d.budget_per_employee * (m.performance_rating / 10)
+    type_of_logic: indirect
+    base_table:
+        Employees_Table: years_of_experience
+        Departments_Table: budget_per_employee
+        Managers_Table: performance_rating
+
+Output -
+salary:
+    Description: The salary column represents the calculated salary of an employee based on their years of experience, the budget allocated per employee in their respective department, and their manager's performance rating.
+
+------------------------------------------
+Actual -
+------------------------------------------
+
+Column Metadata -
+<<ColumnMetadata>>
+
+Output -

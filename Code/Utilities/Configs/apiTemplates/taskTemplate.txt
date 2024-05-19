@@ -1,0 +1,98 @@
+Task -
+Give column, column logic and its base table using the queries provided below.
+
+Output format -
+    Column Name:
+      DataType: Data type of the column
+      constraints: Like Null Allowed, PRIMARY KEY, Foreign Key (to whom), Checks etc
+      logic: Logics used for data insertion (extract the code from the query as it is)
+      type_of_logic: direct(direct) or indirect/calculative(indirect)
+      base_table: [(Table from which column is derived, Column from the table)]
+
+Directives -
+1. Replace 'Column Name', 'Data type of the column', and other placeholder text with actual values
+2. Repeat the structure for each column
+3. Only provide result as directed
+
+------------------------------------------
+Example -
+------------------------------------------
+
+DDL Query -
+CREATE TABLE Employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(100) NOT NULL,
+    department_id INT,
+    manager_id INT,
+    salary DECIMAL(10, 2),
+    CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES Departments_Table(department_id),
+    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES Managers_Table(manager_id)
+);
+
+Insert Query -
+INSERT INTO Employees (employee_id, employee_name, department_id, manager_id, salary)
+SELECT
+    e.employee_id,
+    e.employee_name,
+    d.department_id,
+    m.manager_id,
+    e.years_of_experience * d.budget_per_employee * (m.performance_rating / 10) AS salary
+FROM
+    Employees_Table AS e
+JOIN
+    Departments_Table AS d ON e.department_name = d.department_name
+JOIN
+    Managers_Table AS m ON d.manager_name = m.manager_name;
+
+
+Output -
+employee_id:
+    DataType: INT
+    constraints: [PRIMARY KEY]
+    logic: e.employee_id
+    type_of_logic: direct
+    base_table:
+        Employees_Table: id
+employee_name:
+    DataType: VARCHAR(100)
+    constraints: [NOT NULL, CHECK (LENGTH(name) <= 100), UNIQUE (name, age)]
+    logic: e.employee_name
+    type_of_logic: direct
+    base_table:
+        Employees_Table: name
+department_id:
+    DataType: INT
+    constraints: [FOREIGN KEY (Departments_Table,department_id)]
+    logic: d.department_id
+    type_of_logic: direct
+    base_table:
+        Departments_Table: department_id
+manager_id:
+    DataType: INT
+    constraints: [FOREIGN KEY (Managers_Table,manager_id)]
+    logic: m.manager_id
+    type_of_logic: direct
+    base_table:
+        Managers_Table: manager_id
+salary:
+    DataType: DECIMAL(10, 2)
+    constraints:
+    logic: e.years_of_experience * d.budget_per_employee * (m.performance_rating / 10)
+    type_of_logic: indirect
+    base_table:
+        Employees_Table: years_of_experience
+        Departments_Table: budget_per_employee
+        Managers_Table: performance_rating
+
+------------------------------------------
+Actual -
+------------------------------------------
+
+DDL Query -
+<<DDLQUERY>>
+
+Insert Query -
+<<INSERETQUERY>>
+
+
+Output -
