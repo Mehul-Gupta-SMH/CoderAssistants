@@ -6,7 +6,7 @@
 - [x] Models : 
   - **LLM**
     - GPT-3.5-turbo (OpenAI)
-    - claude-2.0 (Anthropic)
+    - Claude-2.0 (Anthropic)
     - Gemma-2b-it (Google)
   - **Embedding**
     - mxbai-embed-large-v1 (Mixedbread AI)
@@ -20,28 +20,28 @@
 
 ## Project : Coder Assistants
 
-- ### Code Assistant agents templates
+- ### Code Assistant agent templates
   - #### Python Dev Team
     - [x] **Co-ordinating Manager**
-      - [x] Technical Manager : Identifies which agent is required for the successive tasks. 
+      - [x] Technical Manager: Identifies which agent is required for the successive tasks. 
     - [x] **Developer Team**
-      - [x] Project Planner : Breaks down initial problem into simpler chunks to be done by code writer
-      - [x] Code Writer : Writes codes
-      - [x] QA developer : Write code tests to be done
+      - [x] Project Planner: Breaks down the initial problem into simpler chunks to be done by the code writer
+      - [x] Code Writer: Writes codes
+      - [x] QA developer: Write code tests to be done
     - [ ] **Support Tools**
-      - [ ] Code Repo : Identifies already existing code repository that can be used for development.
-      - [ ] Code Testing support : Runs and checks if the codes that works as intended.
+      - [ ] Code Repo: Identifies already existing code repository that can be used for development.
+      - [ ] Code Testing support: Runs and checks if the codes work as intended.
   
   - #### SQL Dev Team
     - [x] Co-ordinating Manager
-      - [x] Technical Manager : Identifies which agent is required for the successive tasks.
+      - [x] Technical Manager: Identifies which agent is required for the successive tasks.
     - [x] Developer Team
-      - [x] Lead Analyst : Breaks down the complex issues in smaller queries that can be used by the Senior analyst and Junior Analyst.
-      - [x] Senior Analyst : Write queries for complex tasks 
-      - [x] Junior Analyst : Write queries for simpler tasks 
+      - [x] Lead Analyst: Breaks down the complex issues in smaller queries that can be used by the Senior analyst and Junior Analyst.
+      - [x] Senior Analyst: Write queries for complex tasks 
+      - [x] Junior Analyst: Write queries for simpler tasks 
     - [ ] Support Tools
-      - [ ] Database Admin : Helps Analyst team to write queries by providing context about the tables and columns that can be used for building queries.
-      - [ ] Query Testing support : Runs and checks if the queries that works as intended. 
+      - [ ] Database Admin: Helps the Analyst team to write queries by providing context about the tables and columns that can be used for building queries.
+      - [ ] Query Testing support: Runs and checks if the queries work as intended. 
 
 - ### Code Migration
   - #### SAS to PySpark (TBD)
@@ -79,3 +79,5 @@
       - PII
       - HIPPA (Health, Insurance related)
     - Identify which agent / tool can be used for the next steps (building own agent framework?)
+=======
+
